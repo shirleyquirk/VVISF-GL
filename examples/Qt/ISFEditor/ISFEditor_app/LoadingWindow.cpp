@@ -326,8 +326,11 @@ void LoadingWindow::appQuitEvent()	{
 
 void LoadingWindow::loadUserISFsButtonClicked()	{
 	qDebug() << __PRETTY_FUNCTION__;
-	
+#if defined(Q_OS_MAC)
 	QString			dirToLoad("~/Library/Graphics/ISF");
+#elif defined(Q_OS_LINUX)
+	QString			dirToLoad("~/.cache/ISF");
+#endif
 	dirToLoad.replace("~", QDir::homePath());
 	setBaseDirectory(dirToLoad);
 }
@@ -348,6 +351,19 @@ void LoadingWindow::loadSystemISFsButtonClicked()	{
 	QString			dirToLoad(tmpDir.path());
 #elif defined(Q_OS_MAC)
 	QString			dirToLoad("/Library/Graphics/ISF");
+#elif defined(Q_OS_LINUX)
+	QDir			tmpDir = QDir::home();
+	if (!tmpDir.cd(".cache"))	{
+		tmpDir.mkdir(".cache");
+		tmpDir.cd(".cache");
+	}
+	if (!tmpDir.cd("ISF"))	{
+		tmpDir.mkdir("ISF");
+		tmpDir.cd("ISF");
+	}
+	if (!tmpDir.exists())
+		return;
+	QString			dirToLoad(tmpDir.path());
 #endif
 	setBaseDirectory(dirToLoad);
 	

@@ -9,6 +9,8 @@
 #include "InterAppOutput_Mac.h"
 #elif defined(Q_OS_WIN)
 #include "InterAppOutput_Win.h"
+#elif defined(Q_OS_LINUX)
+#include "InterAppOutput_Lin.h"
 #endif
 
 
@@ -30,6 +32,8 @@ private:
 	InterAppOutput_Mac			output;
 #elif defined(Q_OS_WIN)
 	InterAppOutput_Win			output;
+#elif defined(Q_OS_LINUX)
+	InterAppOutput_Lin			output;
 #endif
 };
 

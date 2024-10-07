@@ -124,6 +124,17 @@ void GLSLSandboxConverter::okClicked()	{
 		tmpDir.cd("ISF");
 	}
 	QString			exportPath = QString("%1/gs_%2.fs").arg(tmpDir.path()).arg(shaderIDString);
+#elif defined(Q_OS_LINUX)
+	QDir			tmpDir = QDir::home();
+	if (!tmpDir.cd(".cache"))	{
+		tmpDir.mkdir(".cache");
+		tmpDir.cd(".cache");
+	}
+	if (!tmpDir.cd("ISF"))	{
+		tmpDir.mkdir("ISF");
+		tmpDir.cd("ISF");
+	}
+	QString			exportPath = QString("%1/gs_%2.fs").arg(tmpDir.path()).arg(shaderIDString);
 #endif
 	//qDebug() << "exportPath is " << exportPath;
 	

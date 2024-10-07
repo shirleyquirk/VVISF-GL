@@ -28,6 +28,17 @@ ifeq ($(PLATFORM),Raspbian GNU/Linux)
 	LDFLAGS += -lGLESv2 -lEGL
 	LDFLAGS += -lbcm_host -lpthread
 else ifeq ($(shell uname),Linux)
+	CXX = g++
+	CPPFLAGS := -Wall -g -std=c++11 -fPIC
+	CPPFLAGS += -O2
+	CPPFLAGS += -Wno-unknown-pragmas
+# all the examples are for QT not sure how to do a glfw hello world
+	CPPFLAGS += -I./include -DVVGL_SDK_QT
+#	CPPFLAGS += -I./include -DVVGL_SDK_GLFW
+
+	LDFLAGS := -lstdc++ -shared -fPIC
+#	LDFLAGS += -lpthread
+#	where is pthread used???
 
 else ifeq ($(PLATFORM),Darwin)
 	# make sure we have an ARCH value even if one wasn't provided by the environment!

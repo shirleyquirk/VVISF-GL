@@ -193,6 +193,12 @@ HEADERS += \
 
 
 # platform-specific classes
+unix {
+    SOURCES += VideoSource/InterAppVideoSource_Lin.cpp \
+        VideoOutput/InterAppOutput_Lin.cpp
+    HEADERS += VideoSource/InterAppVideoSource_Lin.h \
+        VideoOutput/InterAppOutput_Lin.h
+}
 mac {
 	SOURCES += ../../common/SyphonVVBufferPoolAdditions.mm \
 		VideoSource/InterAppVideoSource_Mac.mm \
@@ -428,8 +434,6 @@ win32	{
 }
 
 
-
-
 fftreal_dir = ../fftreal
 
 INCLUDEPATH += $${fftreal_dir}
@@ -453,7 +457,7 @@ mac {
 # additions for fftreal lib
 win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../fftreal/release/ -lfftreal
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../fftreal/debug/ -lfftreal
-#else:unix: LIBS += -L$$OUT_PWD/../../VVGL/ -lVVGL
+else:unix: LIBS += -L$${fftreal_dir} -lVVGL -lfftreal
 
 
 

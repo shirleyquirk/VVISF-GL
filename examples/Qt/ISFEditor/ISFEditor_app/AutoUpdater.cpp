@@ -62,8 +62,12 @@ AutoUpdater::AutoUpdater(QObject * inParent) :
 		tmpPath = QString("C:/Qt/MaintenanceTool.exe");
 	else
 		tmpPath = exeDir.path() + "/maintenancetool.exe";
-#else
+#elif defined(Q_OS_LINUX)
 	//	linux builds will fail to compile somewhere around here.  not sure where Qt is installed, don't have one handy!
+	//qDebug() "AutoUpdater build for linux";
+	QDir			exeDir = QDir(QCoreApplication::applicationDirPath());
+	QString			tmpPath = exeDir.path() + "/maintenancetool"; 
+	// i dont freaking know, surely this doesnt matter
 #endif
 	//qDebug() << "making QtAutoUpdater with path to maintenance tool " << tmpPath;
 	_uc = new QtAutoUpdater::UpdateController(tmpPath, inParent);

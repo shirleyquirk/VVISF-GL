@@ -647,6 +647,17 @@ void ShadertoyConverter::okClicked()	{
 		tmpDir.cd("ISF");
 	}
 	QString			writeFolder = tmpDir.path();
+#elif defined(Q_OS_LINUX)
+		QDir			tmpDir = QDir::home();
+	if (!tmpDir.cd(".cache"))	{
+		tmpDir.mkdir(".cache");
+		tmpDir.cd(".cache");
+	}
+	if (!tmpDir.cd("ISF"))	{
+		tmpDir.mkdir("ISF");
+		tmpDir.cd("ISF");
+	}
+	QString			writeFolder = tmpDir.path();
 #endif
 	QString			writeLocation;
 	if (!shadertoyName.isNull())	{
